@@ -1,0 +1,12 @@
+[1] "Strongly dependent CLs"
+ UBA6 BIRC6 KCMF1  UBR4 
+   10    33   436   665 
+[1] "Total Cls 789"
+# A tibble: 5 x 3
+  CLs        Gene  gene_effect
+  <chr>      <chr>       <dbl>
+1 ACH-000004 UBA6       -0.368
+2 ACH-000004 BIRC6      -0.670
+3 ACH-000004 KCMF1      -0.741
+4 ACH-000004 UBR4       -0.993
+5 ACH-000005 UBA6       -0.107

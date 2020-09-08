@@ -15,7 +15,7 @@ genes <- c('UBA6', 'BIRC6', 'KCMF1', 'UBR4')
 ge_subset_crispr <- Achilles.gene.effect.CRISPR[, genes]
 correlation = cor(ge_subset_crispr[rowSums(is.na(ge_subset_crispr))==0,])
 
-pdf(file =here::here('output', 'Fig1', 'CRISPR_correlations.pdf'))
+pdf(file =here::here('output', 'Fig1', '1c_CRISPR_correlations.pdf'))
 correlation_plot <- corrplot(correlation, method="circle", type='lower', addCoef.col='white')
 dev.off()
 
@@ -31,7 +31,7 @@ plot_CRISPR_1 <- ggscatter(ge_subset_crispr, x = "UBA6", y = "BIRC6", add = "reg
   ylab('BIRC6 dependency (CERES)')+
   theme_classic()
 
-ggsave(here::here('output', 'Fig1', 'UBA6_BIRC6_CRISPR_correlation.pdf'), plot_CRISPR_1, dpi=600)
+ggsave(here::here('output', 'Fig1', '1c_UBA6_BIRC6_CRISPR_correlation.pdf'), plot_CRISPR_1, dpi=600)
 
 plot_CRISPR_2 <- ggscatter(ge_subset_crispr, x = "KCMF1", y = "UBR4", add = "reg.line", conf.int = TRUE, color='orange', alpha=0.5,
           add.params = list(color = "black",
@@ -41,7 +41,7 @@ plot_CRISPR_2 <- ggscatter(ge_subset_crispr, x = "KCMF1", y = "UBR4", add = "reg
   xlab('KCMF1 dependency (CERES)')+
   ylab('UBR4 dependency (CERES)')
 
-ggsave(here::here('output', 'Fig1', 'KCMF1_BIRC6_CRISPR_correlation.pdf'), plot_CRISPR_2, dpi=600)
+ggsave(here::here('output', 'Fig1', '1c_KCMF1_BIRC6_CRISPR_correlation.pdf'), plot_CRISPR_2, dpi=600)
 
 
 
@@ -54,6 +54,6 @@ ge_subset_RNAi <- gene.effect.RNAi[, genes]
 correlation = cor(ge_subset_RNAi[rowSums(is.na(ge_subset))==0,])
 corrplot(correlation, method="circle", type='lower', addCoef.col='white')
 
-pdf(file =here::here('output', 'Fig1', 'RNAi_correlations.pdf'))
+pdf(file =here::here('output', 'Fig1', '1c_RNAi_correlations.pdf'))
 correlation_plot <- corrplot(correlation, method="circle", type='lower', addCoef.col='white')
 dev.off()
