@@ -9,7 +9,7 @@ genes <- c('UBA6', 'BIRC6', 'KCMF1', 'UBR4')
 
 ## Achilles
 
-demeter2_RNAi_ge <- data.table::fread(here::here('data', 'demeter2-achilles_v12-gene-effect.csv')) %>% 
+demeter2_RNAi_ge <- data.table::fread(here::here('data', 'raw', 'demeter2-achilles_v12-gene-effect.csv')) %>% 
   column_to_rownames('V1') %>% 
   extract_hugo_symbol_colnames() 
 
@@ -36,7 +36,7 @@ ggplot(ge_subset_RNAi, aes(x=gene_effect))+
         axis.ticks.y=element_blank())+
   xlab('Gene Effect (DEMETER2)')
 
-demeter2_RNAi_pr <- data.table::fread(here::here('data', 'demeter2-achilles_v12-gene-dependency.csv')) %>% 
+demeter2_RNAi_pr <- data.table::fread(here::here('data', 'raw', 'demeter2-achilles_v12-gene-dependency.csv')) %>% 
   column_to_rownames('V1') %>% 
   extract_hugo_symbol_colnames() 
 

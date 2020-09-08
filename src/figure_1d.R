@@ -9,7 +9,7 @@ genes <- c('UBA6', 'BIRC6', 'KCMF1', 'UBR4')
 
 ## Achilles
 
-Achilles.gene.effect.CRISPR <- data.table::fread(here::here('data', 'public-20q3_v32-achilles-gene-effect.csv')) %>% 
+Achilles.gene.effect.CRISPR <- data.table::fread(here::here('data', 'raw', 'public-20q3_v32-achilles-gene-effect.csv')) %>% 
   column_to_rownames('V1') %>% 
   extract_hugo_symbol_colnames() 
 
@@ -40,7 +40,7 @@ ggplot(ge_subset_crispr, aes(x=gene_effect))+
 
 ggsave(here::here('output', 'Fig1', '1d_CRISPR_gene_effect_density_plots.pdf'), plot_CRISPR_2, dpi=600)
 
-Achilles.gene.dep.CRISPR <- data.table::fread(here::here('data', 'public-20q3_v32-achilles-gene-dependency.csv')) %>% 
+Achilles.gene.dep.CRISPR <- data.table::fread(here::here('data', 'raw', 'public-20q3_v32-achilles-gene-dependency.csv')) %>% 
   column_to_rownames('V1') %>% 
   extract_hugo_symbol_colnames() 
 

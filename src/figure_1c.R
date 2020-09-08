@@ -9,7 +9,7 @@ source(here::here('src', 'helper_functions.R'))
 
 ## Achilles
 
-Achilles.gene.effect.CRISPR <- data.table::fread(here::here('data', 'public-20q3_v32-achilles-gene-effect.csv')) %>% column_to_rownames('V1') %>% extract_hugo_symbol_colnames() 
+Achilles.gene.effect.CRISPR <- data.table::fread(here::here('data', 'raw', 'public-20q3_v32-achilles-gene-effect.csv')) %>% column_to_rownames('V1') %>% extract_hugo_symbol_colnames() 
 
 genes <- c('UBA6', 'BIRC6', 'KCMF1', 'UBR4')
 ge_subset_crispr <- Achilles.gene.effect.CRISPR[, genes]
@@ -48,7 +48,7 @@ ggsave(here::here('output', 'Fig1', '1c_KCMF1_BIRC6_CRISPR_correlation.pdf'), pl
 
 ## RNAi
 
-gene.effect.RNAi <- data.table::fread(here::here('data', 'demeter2-achilles_v12-gene-effect.csv')) %>% column_to_rownames('V1') %>% extract_hugo_symbol_colnames() 
+gene.effect.RNAi <- data.table::fread(here::here('data', 'raw', 'demeter2-achilles_v12-gene-effect.csv')) %>% column_to_rownames('V1') %>% extract_hugo_symbol_colnames() 
 
 ge_subset_RNAi <- gene.effect.RNAi[, genes]
 correlation = cor(ge_subset_RNAi[rowSums(is.na(ge_subset))==0,])
