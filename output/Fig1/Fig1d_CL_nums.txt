@@ -1,0 +1,4 @@
+[1] "Strongly dependent CLs"
+ UBA6 BIRC6 KCMF1  UBR4 
+   10    33   436   665 
+[1] "Total Cls 789"

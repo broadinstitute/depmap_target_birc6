@@ -41,7 +41,7 @@ plot_CRISPR_2 <- ggscatter(ge_subset_crispr, x = "KCMF1", y = "UBR4", add = "reg
   xlab('KCMF1 dependency (CERES)')+
   ylab('UBR4 dependency (CERES)')
 
-ggsave(here::here('output', 'Fig1', 'KCMF1_UBR4_CRISPR_correlation.pdf'), plot_CRISPR_2, dpi=600)
+ggsave(here::here('output', 'Fig1', 'KCMF1_BIRC6_CRISPR_correlation.pdf'), plot_CRISPR_2, dpi=600)
 
 
 
