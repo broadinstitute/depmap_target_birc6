@@ -40,3 +40,4 @@ vignettes/*.pdf
 
 # Data file
 /data
+/src/code_dump
