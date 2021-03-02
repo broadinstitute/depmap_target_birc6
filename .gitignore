@@ -41,3 +41,6 @@ vignettes/*.pdf
 # Data file
 /data
 /src/code_dump
+
+Mac Files
+.DS_STORE
