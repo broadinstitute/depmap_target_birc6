@@ -1,0 +1,38 @@
+---
+title: "Fig 2A"
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(taigr)
+library(tidyverse)
+library(cdsr)
+```
+
+```{r}
+sample.info <- load.from.taiga(data.name='public-20q3-3d35', data.version=29, data.file='sample_info')
+Achilles.gene.effect <- load.from.taiga(data.name='public-20q3-3d35', data.version=29, data.file='Achilles_gene_effect') %>%
+  extract_hugo_symbol_colnames()
+Achilles.gene.dependency <- load.from.taiga(data.name='public-20q3-3d35', data.version=29, data.file='Achilles_gene_dependency')%>%
+  extract_hugo_symbol_colnames()
+
+sample.info %>% filter(DepMap_ID %in% rownames(Achilles.gene.effect)) %>% pull(lineage) %>% table()
+```
+
+
+```{r}
+dependent_CLs <- c('ACH-000454', 'ACH-000683', 'ACH-001396', 'ACH-000809', 'ACH-000725') 
+non_dependent_cls <-c('ACH-000421', 'ACH-000352', 'ACH-000711' ,'ACH-000865' ,'ACH-000935' ,'ACH-000878')
+```
+
+```{r}
+Achilles.gene.effect[dependent_CLs, 'BIRC6']
+Achilles.gene.effect[non_dependent_cls, 'BIRC6']
+```
+
+```{r}
+Achilles.gene.dependency[dependent_CLs, 'BIRC6']
+Achilles.gene.dependency[non_dependent_cls, 'BIRC6']
+```

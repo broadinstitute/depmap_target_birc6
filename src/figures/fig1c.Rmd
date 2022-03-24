@@ -1,0 +1,50 @@
+---
+title: "Fig 1C"
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  chunk_output_type: console
+---
+
+```{r, include=F}
+library(cdsr)
+library(taigr)
+library(useful)
+library(tidyverse)
+library(magrittr)
+library(corrplot)
+
+release_name_CRISPR <- 'public-20q3-3d35'
+release_version_CRISPR <- 32
+
+release_name_RNAi <- 'demeter2-achilles-5386'
+release_version_RNAi <- 13
+```
+
+## Achilles
+```{r}
+Achilles.gene.effect.CRISPR <- load.from.taiga(data.name=release_name_CRISPR, data.version=release_version_CRISPR, data.file='Achilles_gene_effect') %>% extract_hugo_symbol_colnames()
+
+genes <- c('UBA6', 'BIRC6', 'KCMF1', 'UBR4')
+ge_subset <- Achilles.gene.effect.CRISPR[, genes]
+correlation = cor(ge_subset[rowSums(is.na(ge_subset))==0,])
+
+pdf(file = "fig1c_Achilles_correlation.pdf")
+corrplot(correlation, method="circle", type='lower', addCoef.col='white', title='Achilles_CRISPR', diag = F)
+dev.off()
+```
+
+
+
+## RNAi
+```{r}
+gene.effect.RNAi <- load.from.taiga(data.name=release_name_RNAi, data.version=release_version_RNAi, data.file='gene_effect')%>% extract_hugo_symbol_colnames()
+
+ge_subset <- gene.effect.RNAi[, genes]
+correlation = cor(ge_subset[rowSums(is.na(ge_subset))==0,])
+
+pdf(file = "fig1c_RNAi_correlation.pdf")
+corrplot(correlation, method="circle", type='lower', addCoef.col='white', title='RNAi', diag = F)
+dev.off()
+```
