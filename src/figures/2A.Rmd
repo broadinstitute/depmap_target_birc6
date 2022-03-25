@@ -17,7 +17,7 @@ Achilles.gene.effect <- load.from.taiga(data.name='public-20q3-3d35', data.versi
   extract_hugo_symbol_colnames()
 Achilles.gene.dependency <- load.from.taiga(data.name='public-20q3-3d35', data.version=29, data.file='Achilles_gene_dependency')%>%
   extract_hugo_symbol_colnames()
-
+  
 sample.info %>% filter(DepMap_ID %in% rownames(Achilles.gene.effect)) %>% pull(lineage) %>% table()
 ```
 

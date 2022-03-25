@@ -1,56 +1,43 @@
----
-title: "Overall_Cluster_metrics_top4000"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-author: "Ashir"
-output:
-  html_document:
-    df_print: paged
-editor_options: 
-  chunk_output_type: console
----
+# Overall_Cluster_metrics_top4000
 
-
-```{r, include=F}
 library(tidyverse)
 library(cdsr)
 library(taigr)
 library(knitr)
 library(DT)
 library(cdsrgsea)
-```
 
-```{r, include=F}
+release_name_CRISPR <- 'public-20q3-3d35'
+release_version_CRISPR <- 32
+
 cluster_info <- read_csv('data/cluster_file_with_metrics.csv')
 
 gene_list <- paste(cluster_info$community_string, collapse = ',') %>% str_split(., ',') %>% unlist() %>% unique()
 
 #gsc_data is a list of gene set collections (objects of class GSEABase)
-gene_effect <- Achilles.gene.effect <- load.from.taiga(data.name='public-20q1-c3b6', data.version=17, data.file='Achilles_gene_effect') %>% extract_hugo_symbol_colnames()
-```
+gene_effect <- Achilles.gene.effect <- load.from.taiga(data.name=release_name_CRISPR, data.version=release_version_CRISPR, data.file='Achilles_gene_effect') %>% extract_hugo_symbol_colnames()
+
 
 ## Cluster size distribution
 
-Note: communties are filtered to have a minimum size of 3
-```{r}
+# Note: communties are filtered to have a minimum size of 3
+
 ggplot(data=cluster_info, aes(x=size_of_community))+
   geom_bar()+
   theme_classic()+
   xlab('Size of modules')
-```
+
+ggsave('output/FigS1A_module_size.png')
+
 
 ## GSEA on cluster genes
 
-```{r}
+
 gsc.data.term2gene <- read_rds(download.raw.from.taiga(data.name='msigdb-gene-set-collections-8453', data.version=4, data.file='gsc_data_term2gene'))
 
 geneset <- rbind(gsc.data.term2gene$Cancer_Modules, gsc.data.term2gene$Hallmark, gsc.data.term2gene$GO_Biological_Process, gsc.data.term2gene$GO_Cellular_Component, gsc.data.term2gene$GO_Molecular_Function, gsc.data.term2gene$MSigDB_Oncogenic_Signatures)
 
-#geneset <- rbind(gsc.data.term2gene$Cancer_Modules, gsc.data.term2gene$Hallmark)
 
-#geneset <- rbind(gsc.data.term2gene$GO_Biological_Process)
-```
-
-```{r}
 fisher_test <- function(genes,term2gene,p_adjust_method,min_size,max_size,dir) {
 
   res <- term2gene %>% dplyr::group_by(term) %>%
@@ -81,20 +68,14 @@ fisher_test <- function(genes,term2gene,p_adjust_method,min_size,max_size,dir) {
 
   return(res)
 }
-```
 
-
-```{r}
 res <- fisher_test(genes=gene_list,geneset,p_adjust_method = "BH",min_size = 1,max_size = Inf) 
-```
 
-```{r}
 ggplot(res %>% filter(p_adjust<0.05) %>% arrange(-odds_ratio) %>% head(20) , aes(x=reorder(term,odds_ratio), y=odds_ratio, fill=p_adjust))+
   geom_bar(stat='identity') +
   scale_fill_gradient(low='blue', high='red')+
   coord_flip()+
   xlab('Genesets')+
   ylab('Odds Ratio')
-```
 
-
+ggsave('output/FigS1A_GSEA.png')
